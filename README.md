@@ -53,33 +53,33 @@ At this point all requests/responses will be logged. For providing extra context
 
 By default the audit log sends the following json structure per request:
 
-    ```json
-    {
-      "app": {
-        "name": "AUDIT_LOG_APP_NAME"
-      },
-      "http_request": {
-        "method": "get|post|head|options|etc..",
-        "url": "https://datapunt.amsterdam.nl?including=querystring",
-        "user_agent": "full browser user agent"
-      },
-      "http_response": {
-        "status_code": "http status code",
-        "reason": "http status reason",
-        "headers": {
-          "key": "value"
-        }
-      },
-      "user": {
-        "authenticated": "True/False",
-        "provider": "auth backend the user authenticated with",
-        "realm": "optional realm when using keycloak or another provider",
-        "email": "email of logged in user",
-        "roles": "roles attached to the logged in user",
-        "ip": "ip address"
-      }
+```json
+{
+  "app": {
+    "name": "AUDIT_LOG_APP_NAME"
+  },
+  "http_request": {
+    "method": "get|post|head|options|etc..",
+    "url": "https://datapunt.amsterdam.nl?including=querystring",
+    "user_agent": "full browser user agent"
+  },
+  "http_response": {
+    "status_code": "http status code",
+    "reason": "http status reason",
+    "headers": {
+      "key": "value"
     }
-    ```
+  },
+  "user": {
+    "authenticated": "True/False",
+    "provider": "auth backend the user authenticated with",
+    "realm": "optional realm when using keycloak or another provider",
+    "email": "email of logged in user",
+    "roles": "roles attached to the logged in user",
+    "ip": "ip address"
+  }
+}
+```
     
 Each json entry is set by its corresponding method. In this case, 
 the middleware sets them automatically by calling
@@ -107,13 +107,13 @@ info on the requested type of object and the filters that have been used
 
 This method will add the following details to the log:
 
-    ```json
-    "filter": {
-          "object": "Object name that is requested",
-          "fields": "Fields that are being filtered on, if applicable",
-          "terms": "Search terms, if applicable"
-      }
-    ```
+```json
+"filter": {
+      "object": "Object name that is requested",
+      "fields": "Fields that are being filtered on, if applicable",
+      "terms": "Search terms, if applicable"
+  }
+```
 
 ### Results
 `AuditLog.set_results(self, results)` allows to pass a json dict
@@ -125,28 +125,28 @@ of a blessing.
 
 This method will add the following details to the log:
 
-    ```json
-    "results": {
-        ...
-      }
-    ```
+```json
+"results": {
+    ...
+  }
+```
 
 ### Message and loglevel
 At last, a log message and loglevel can be provided to indicate 
 what the request is actually doing. This is done by calling 
 one of the following methods:
 
-    ```python
-    AuditLog.debug(self, msg)
-    AuditLog.info(self, msg)
-    AuditLog.warning(self, msg)
-    AuditLog.error(self, msg)
-    AuditLog.critical(self, msg)
-    ```
+```python
+AuditLog.debug(self, msg)
+AuditLog.info(self, msg)
+AuditLog.warning(self, msg)
+AuditLog.error(self, msg)
+AuditLog.critical(self, msg)
+```
     
 These methods will add the following details to the log:
 
-    ```json
-    "type": "DEBUG|INFO|WARNING|ERROR|etc",
-    "message": "log message"
-    ```
+```json
+"type": "DEBUG|INFO|WARNING|ERROR|etc",
+"message": "log message"
+```
