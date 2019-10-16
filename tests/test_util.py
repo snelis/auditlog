@@ -1,4 +1,5 @@
 from unittest import TestCase
+from unittest.mock import patch
 
 from django.http import HttpRequest
 
@@ -17,11 +18,7 @@ class TestUtil(TestCase):
         request.META['REMOTE_ADDR'] = '2.3.4.5'
         self.assertEqual(get_client_ip(request), '2.3.4.5')
 
-    def test_get_client_ip_exception(self):
-        # todo: improve
-        # This method causes the audit logger to perform a connect
-        # which will run through the formatter, giving false positives about
-        # our test coverage, and printing warnings along te way.
-        with self.assertLogs(level='WARNING') as log:
-            self.assertEqual(get_client_ip(request=None), 'failed to get ip')
-            self.assertIn('Failed to get ip for audit log', log.output[0])
+    @patch('logging.Logger.warning')
+    def test_get_client_ip_exception(self, mocked_logger):
+        self.assertEqual(get_client_ip(request=None), 'failed to get ip')
+        mocked_logger.assert_called_with('Failed to get ip for audit log', exc_info=True)
