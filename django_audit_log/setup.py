@@ -32,6 +32,7 @@ os.chdir(os.path.normpath(os.path.join(os.path.abspath(__file__), os.pardir)))
 
 
 install_requirements = [
+    'django'
 ]
 
 test_requirements = [
@@ -44,7 +45,7 @@ extra_requirements = {
 }
 
 setup(
-    name='datapunt-auditlog',
+    name='datapunt-django-auditlog',
     version='0.1',
     license='Mozilla Public License 2.0',
 
