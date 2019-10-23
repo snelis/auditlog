@@ -1,9 +1,9 @@
 from unittest.mock import patch
 
-from audit_log.logger import AuditLogger
 from django.test import RequestFactory, TestCase
 from django.views import View
 
+from audit_log.logger import AuditLogger
 from django_audit_log.middleware import AuditLogMiddleware
 
 
